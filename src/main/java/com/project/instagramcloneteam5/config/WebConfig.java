@@ -1,5 +1,6 @@
 package com.project.instagramcloneteam5.config;
 
+import com.project.instagramcloneteam5.config.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedHeaders("*")
-                .exposedHeaders("*");
+                .exposedHeaders("*")
+                .exposedHeaders(JwtFilter.AUTHORIZATION_HEADER);
 
     }
 }

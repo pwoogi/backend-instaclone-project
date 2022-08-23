@@ -36,8 +36,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "*")
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "*")
     public Response logIn(HttpServletResponse httpServletResponse,@Valid @RequestBody LoginRequestDto req) {
         return Response.success(memberService.logIn(req,httpServletResponse));
     }
