@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -152,7 +154,7 @@ public class BoardService {
         return new BoardUpdateResponseDto(boardId, board);
     }
 
-    // 게시글 삭제
+     //게시글 삭제
     @Transactional
     public void deleteBoard(Long boardId) {
         Board board = boardRepository.findById(boardId).orElseThrow(
@@ -168,9 +170,9 @@ public class BoardService {
         );
 
         // 본인의 게시글만 삭제 가능
-        //TODO : 필수확인 구조 이상함
+        //TODO: 필수확인 구조 이상함
 
-        if (board.getMember().equals(member)) {
+        if (!board.getMember().equals(member)) {
             System.out.println("이름1 = " + board.getMember() + "이름2 = " + member);
             throw new PrivateException(Code.WRONG_ACCESS_POST_DELETE);
         }
@@ -178,4 +180,22 @@ public class BoardService {
         s3Service.delete(board.getImageList());
         boardRepository.delete(board);
     }
+
+//    public void deletePost(Long boardId) {
+//        Board board = boardRepository.findById(boardId)
+//                .orElseThrow(()-> new IllegalArgumentException("아이디가 없습니다"));
+////
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Member member = memberRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+//        if (!board.getMember().equals(member)){
+//            System.out.println("이름1 = " + board.getMember() + "이름2 = " + member);
+//            throw new PrivateException(Code.WRONG_ACCESS_POST_DELETE);
+//        }
+////        Member member = memberRepository.findById(post.getUsers().getUsername())
+////                .orElseThrow(()-> new IllegalArgumentException("아이디가 없습니다"));
+//        commentRepository.deleteAll(board.getCommentList());
+//        s3Service.delete(board.getImageList());
+//        boardRepository.delete(board);
+//
+//    }
 }

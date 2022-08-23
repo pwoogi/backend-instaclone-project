@@ -94,4 +94,9 @@ public class BoardController {
         boardService.deleteBoard(boardId);
         return Response.success();
     }
+
+//    @DeleteMapping("/board/details/{boardId}")
+//    public void deleteBoard(@PathVariable Long boardId){
+//        boardService.deletePost(boardId);
+//    }
 }

@@ -18,6 +18,8 @@ public class CorsConfig {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addExposedHeader("Authorization");
         config.setMaxAge(3600L);
 
         source.registerCorsConfiguration("/**", config);
