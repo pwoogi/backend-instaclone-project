@@ -1,6 +1,7 @@
 package com.project.instagramcloneteam5.model.dto;
 
 import com.project.instagramcloneteam5.model.Board;
+import com.project.instagramcloneteam5.model.Heart;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +16,8 @@ public class BoardGetResponseDto {
 
     private int commentCount;
 
+    private int likeCount;
+
     private List<String> imgUrl;
 
 
@@ -23,6 +26,7 @@ public class BoardGetResponseDto {
         this.username = board.getMember().getUsername();
         this.content = board.getContent();
         this.imgUrl = imgUrl;
+        this.likeCount = board.getLikeCount();
         this.commentCount = commentList.size();
     }
 

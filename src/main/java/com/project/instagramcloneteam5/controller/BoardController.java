@@ -3,15 +3,20 @@ package com.project.instagramcloneteam5.controller;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.ExceptionResponseDto;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
+import com.project.instagramcloneteam5.exception.support.MemberNotFoundException;
+import com.project.instagramcloneteam5.model.Member;
 import com.project.instagramcloneteam5.model.dto.BoardDetailsResponseDto;
 import com.project.instagramcloneteam5.model.dto.BoardGetResponseDto;
 import com.project.instagramcloneteam5.model.dto.BoardRequestDto;
 import com.project.instagramcloneteam5.model.dto.BoardUpdateResponseDto;
+import com.project.instagramcloneteam5.repository.MemberRepository;
 import com.project.instagramcloneteam5.response.Response;
 import com.project.instagramcloneteam5.service.BoardService;
 import com.project.instagramcloneteam5.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +31,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final S3Service s3Service;
+    private final MemberRepository memberRepository;
 
     // 게시글 전체 조회
     @GetMapping("/boards")
@@ -95,8 +101,18 @@ public class BoardController {
         return Response.success();
     }
 
+    @PostMapping("/board/like/{boardId}")
+    public void heartLikes(
+            @PathVariable Long boardId
+    ){
+        boardService.boardLike(boardId);
+    }
+
 //    @DeleteMapping("/board/details/{boardId}")
 //    public void deleteBoard(@PathVariable Long boardId){
 //        boardService.deletePost(boardId);
 //    }
+
+
+
 }

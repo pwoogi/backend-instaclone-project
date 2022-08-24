@@ -33,8 +33,7 @@ public class Comment extends AuditingFields{
     @OneToMany
     private List<Commit> commitList = new ArrayList<>();
 
-    @OneToMany
-    private List<Heart> heartsList = new ArrayList<>();
+
 
     public Comment(Board board, CommentRequestDto commentRequestDto, Member member) {
         if (!StringUtils.hasText(commentRequestDto.getContent())) {
