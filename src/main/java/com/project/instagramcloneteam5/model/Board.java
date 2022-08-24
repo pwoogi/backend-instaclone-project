@@ -1,7 +1,7 @@
 package com.project.instagramcloneteam5.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.instagramcloneteam5.dto.supportdto.BoardRequestDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardDetailsUpdateRequestDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
 import lombok.Getter;
@@ -50,7 +50,7 @@ public class Board extends AuditingFields{
     }
 
     // 게시글 수정
-    public void updateBoard(BoardRequestDto res) {
+    public void updateBoard(BoardDetailsUpdateRequestDto res) {
         if (!StringUtils.hasText(res.getContent())) {
             throw new PrivateException(Code.WRONG_INPUT_CONTENT);
         }

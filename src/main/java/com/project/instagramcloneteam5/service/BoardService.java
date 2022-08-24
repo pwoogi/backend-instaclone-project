@@ -132,7 +132,7 @@ public class BoardService {
     }
     // 게시글 수정
     @Transactional
-    public BoardUpdateResponseDto updateBoard(Long boardId, BoardRequestDto boardRequestDto) {
+    public BoardUpdateResponseDto updateBoard(Long boardId, BoardDetailsUpdateRequestDto boardDetailsUpdateRequestDto) {
         Board board = boardRepository.findById(boardId).orElseThrow(
                 () -> new PrivateException(Code.NOT_FOUND_POST));
 
@@ -148,7 +148,7 @@ public class BoardService {
         if (!board.getMember().equals(member)) {
             throw new PrivateException(Code.WRONG_ACCESS_POST_UPDATE);
         }
-        board.updateBoard(boardRequestDto);
+        board.updateBoard(boardDetailsUpdateRequestDto);
         return new BoardUpdateResponseDto(boardId, board);
     }
 
