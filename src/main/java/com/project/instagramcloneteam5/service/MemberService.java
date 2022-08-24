@@ -87,6 +87,8 @@ public class MemberService {
 
 
         TokenGetResponseDto tokenGetResponseDto = TokenGetResponseDto.builder()
+                .accessToken(tokenDto.getAccessToken())
+                .refreshToken(tokenDto.getRefreshToken())
                 .username(req.getUsername())
                 .build();
 

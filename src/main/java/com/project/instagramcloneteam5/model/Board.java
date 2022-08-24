@@ -1,15 +1,14 @@
 package com.project.instagramcloneteam5.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.instagramcloneteam5.dto.supportdto.BoardRequestDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
-import com.project.instagramcloneteam5.model.dto.BoardRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class Board extends AuditingFields{
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -29,6 +28,9 @@ public class Board extends AuditingFields{
 
     private int likeCount;
 
+    @OneToMany(mappedBy = "board")
+    @JsonIgnore
+    private List<Heart> heartLikeList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -53,5 +55,16 @@ public class Board extends AuditingFields{
             throw new PrivateException(Code.WRONG_INPUT_CONTENT);
         }
         this.content = res.getContent();
+    }
+    public void addHeartLike(Heart heart) {
+        this.heartLikeList.add(heart);
+    }
+
+    public void removeHeartLike(Heart heart) {
+        this.heartLikeList.remove(heart);
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 }

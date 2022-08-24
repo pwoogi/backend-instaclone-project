@@ -1,12 +1,10 @@
 package com.project.instagramcloneteam5.controller;
 
+import com.project.instagramcloneteam5.dto.supportdto.BoardDetailsResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardRequestDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardUpdateResponseDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
-import com.project.instagramcloneteam5.exception.advice.ExceptionResponseDto;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
-import com.project.instagramcloneteam5.model.dto.BoardDetailsResponseDto;
-import com.project.instagramcloneteam5.model.dto.BoardGetResponseDto;
-import com.project.instagramcloneteam5.model.dto.BoardRequestDto;
-import com.project.instagramcloneteam5.model.dto.BoardUpdateResponseDto;
 import com.project.instagramcloneteam5.response.Response;
 import com.project.instagramcloneteam5.service.BoardService;
 import com.project.instagramcloneteam5.service.S3Service;
@@ -15,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -31,17 +27,19 @@ public class BoardController {
     @GetMapping("/boards")
     @ResponseStatus(HttpStatus.OK)
 
-    public Response getAllBoard(){ return Response.success(boardService.getAllBoard());}
+    public Response getAllBoard() {
+        return Response.success(boardService.getAllBoard());
+    }
 
     // 메인 페이지 무한 스크롤
     @GetMapping("/boardScroll")
     @ResponseStatus(HttpStatus.OK)
 
     public Response getBoardSlice(
-            @RequestParam(required=false) Integer page,
-            @RequestParam(required=false) Integer size,
-            @RequestParam(required=false) String sortBy ,
-            @RequestParam(required=false) Boolean isAsc
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) Boolean isAsc
     ) {
         if (isNotNullParam(page, size, sortBy, isAsc)) {
             page -= 1;
@@ -60,7 +58,7 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
 
     public Response getEachOne(@PathVariable Long boardId) {
-        BoardDetailsResponseDto boardDetailsResponseDto= boardService.getEachOne(boardId);
+        BoardDetailsResponseDto boardDetailsResponseDto = boardService.getEachOne(boardId);
         return Response.success(boardDetailsResponseDto);
     }
 
@@ -83,7 +81,7 @@ public class BoardController {
     // 게시글 수정
     @PutMapping("/board/details/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    public Response updateBoard(@PathVariable Long boardId,@RequestPart("content") BoardRequestDto boardRequestDto) {
+    public Response updateBoard(@PathVariable Long boardId, @RequestPart("content") BoardRequestDto boardRequestDto) {
         BoardUpdateResponseDto boardUpdateResponseDto = boardService.updateBoard(boardId, boardRequestDto);
         return Response.success(boardUpdateResponseDto);
     }
@@ -94,4 +92,13 @@ public class BoardController {
         boardService.deleteBoard(boardId);
         return Response.success();
     }
+
+    @PostMapping("/board/like/{boardId}")
+    public void heartLikes(
+            @PathVariable Long boardId
+    ) {
+        boardService.boardLike(boardId);
+    }
+
+
 }

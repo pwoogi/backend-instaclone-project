@@ -1,23 +1,18 @@
 package com.project.instagramcloneteam5.service;
 
 import com.project.instagramcloneteam5.config.SecurityUtil;
-import com.project.instagramcloneteam5.dto.dto.*;
+import com.project.instagramcloneteam5.dto.supportdto.*;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
 import com.project.instagramcloneteam5.exception.support.BoardNotFoundException;
 import com.project.instagramcloneteam5.exception.support.MemberNotFoundException;
-import com.project.instagramcloneteam5.model.Board;
-import com.project.instagramcloneteam5.model.Comment;
-import com.project.instagramcloneteam5.model.Image;
-import com.project.instagramcloneteam5.model.Member;
+import com.project.instagramcloneteam5.model.*;
 import com.project.instagramcloneteam5.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -35,7 +30,6 @@ public class BoardService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final ImageRepository imageRepository;
-    private final CommitRepository commitRepository;
     private final HeartRepository heartRepository;
     private final S3Service s3Service;
 
@@ -184,7 +178,7 @@ public class BoardService {
         s3Service.delete(board.getImageList());
         boardRepository.delete(board);
     }
-
+    // 좋아요 기능
     public void boardLike(Long boardId) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(BoardNotFoundException::new);

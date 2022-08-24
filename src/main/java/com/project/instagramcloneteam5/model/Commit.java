@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Commit {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
