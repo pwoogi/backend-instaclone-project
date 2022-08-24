@@ -1,29 +1,44 @@
 package com.project.instagramcloneteam5.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 
-@Getter
-@Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+@Entity
 public class Heart {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @ManyToOne
+    @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
+    @ManyToOne
+    @JoinColumn
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn
     private Comment comment;
+
+
+
+
+    public Heart(Member member,Board board){
+        this.member = member;
+        this.board = board;
+    }
+
+    public Heart(Member member,Comment comment){
+        this.member = member;
+        this.comment = comment;
+    }
+
 
 }

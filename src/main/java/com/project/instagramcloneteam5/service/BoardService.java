@@ -33,6 +33,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final ImageRepository imageRepository;
     private final CommitRepository commitRepository;
+    private final HeartRepository heartRepository;
     private final S3Service s3Service;
 
 
@@ -181,6 +182,31 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
+    public void boardLike(Long boardId) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(BoardNotFoundException::new);
+        String username = SecurityUtil.getCurrentUsername();
+
+        Member member = memberRepository.findMemberByUsername(username).orElseThrow(
+                () -> new PrivateException(Code.NOT_FOUND_MEMBER)
+        );
+        if (heartRepository.findByBoardAndMember(board,member) == null){
+            Heart heart = new Heart(member, board);
+            member.addHeartLike(heart);
+            board.addHeartLike(heart);
+            board.setLikeCount(board.getHeartLikeList().size());
+            heartRepository.save(heart);
+        }else {
+            Heart byPostAndUsers = heartRepository.findByBoardAndMember(board, member);
+            member.removeHeartLike(byPostAndUsers);
+            board.removeHeartLike(byPostAndUsers);
+            board.setLikeCount(board.getHeartLikeList().size());
+            heartRepository.delete(byPostAndUsers);
+        }
+
+    }
+
+
 //    public void deletePost(Long boardId) {
 //        Board board = boardRepository.findById(boardId)
 //                .orElseThrow(()-> new IllegalArgumentException("아이디가 없습니다"));
@@ -198,4 +224,32 @@ public class BoardService {
 //        boardRepository.delete(board);
 //
 //    }
+
+//    @Transactional
+//    public String likeBoard(Long boardId) {
+//        Board board = boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
+//
+//        String username = SecurityUtil.getCurrentUsername();
+//
+//        Member member = memberRepository.findMemberByUsername(username).orElseThrow(
+//                () -> new PrivateException(Code.NOT_FOUND_MEMBER)
+//        );
+//        System.out.println("이름 :" + member + "보드 :" + board);
+//        if(heartRepository.findByBoardAndMember(board, member) == null) {
+//            // 좋아요를 누른적 없다면 LikeBoard 생성 후, 좋아요 처리
+//            board.setLiked(board.getLiked() + 1);
+//            Heart heart = new Heart(board, member); // true 처리
+//            System.out.println("이름 :" + member + "보드 :" + board);
+//            heartRepository.save(heart);
+//            return "좋아요 처리 완료";
+//        } else {
+//            // 좋아요를 누른적 있다면 취소 처리 후 테이블 삭제
+//            Heart heart = heartRepository.findByBoardAndMember(board, member);
+//            System.out.println("이름 :" + member + "보드 :" + board);
+//            heart.unLikeBoard(board);
+//            heartRepository.delete(heart);
+//            return "좋아요 취소";
+//        }
+//    }
+
 }

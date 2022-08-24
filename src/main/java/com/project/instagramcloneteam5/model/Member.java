@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -34,8 +36,14 @@ public class Member extends AuditingFields {
     @Column(unique = true)
     private Long kakaoId;
 
+    @OneToMany(mappedBy = "member")
+    @JsonIgnore
+    private List<Heart> heartLikeList = new ArrayList<>();
+
     @Column(unique = true)
     private String kakaoEmail;
+
+
 
 
     @Builder
@@ -79,5 +87,13 @@ public class Member extends AuditingFields {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void addHeartLike(Heart heart) {
+        this.heartLikeList.add(heart);
+    }
+
+    public void removeHeartLike(Heart heart) {
+        this.heartLikeList.remove(heart);
     }
 }
