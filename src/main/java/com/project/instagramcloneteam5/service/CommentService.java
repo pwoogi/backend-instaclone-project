@@ -1,10 +1,10 @@
 package com.project.instagramcloneteam5.service;
 
 import com.project.instagramcloneteam5.config.SecurityUtil;
-import com.project.instagramcloneteam5.dto.dto.CommentDetailsResponse;
-import com.project.instagramcloneteam5.dto.dto.CommentRequestDto;
-import com.project.instagramcloneteam5.dto.dto.CommentResponseDto;
-import com.project.instagramcloneteam5.dto.dto.CommitResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.CommentDetailsResponse;
+import com.project.instagramcloneteam5.dto.supportdto.CommentRequestDto;
+import com.project.instagramcloneteam5.dto.supportdto.CommentResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.CommitResponseDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
 import com.project.instagramcloneteam5.exception.support.CommentNotFoundException;
@@ -46,7 +46,7 @@ public class CommentService {
         Member member = memberRepository.findMemberByUsername(username).orElseThrow(
                 () -> new PrivateException(Code.NOT_FOUND_MEMBER)
         );
-        Comment comment = new Comment(board, commentRequestDto, member);
+        Comment comment = new Comment(board, commentRequestDto,member);
         comment = commentRepository.save(comment);
         return new CommentResponseDto(comment);
     }

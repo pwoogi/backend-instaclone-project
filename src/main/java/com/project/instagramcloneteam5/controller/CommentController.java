@@ -1,9 +1,9 @@
 package com.project.instagramcloneteam5.controller;
 
 
-import com.project.instagramcloneteam5.dto.dto.CommentDetailsResponse;
-import com.project.instagramcloneteam5.dto.dto.CommentRequestDto;
-import com.project.instagramcloneteam5.dto.dto.CommentResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.CommentDetailsResponse;
+import com.project.instagramcloneteam5.dto.supportdto.CommentRequestDto;
+import com.project.instagramcloneteam5.dto.supportdto.CommentResponseDto;
 import com.project.instagramcloneteam5.response.Response;
 import com.project.instagramcloneteam5.service.CommentService;
 import lombok.RequiredArgsConstructor;

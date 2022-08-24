@@ -1,12 +1,10 @@
 package com.project.instagramcloneteam5.controller;
 
+import com.project.instagramcloneteam5.dto.supportdto.BoardDetailsResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardRequestDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardUpdateResponseDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
-import com.project.instagramcloneteam5.exception.advice.ExceptionResponseDto;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
-import com.project.instagramcloneteam5.model.dto.BoardDetailsResponseDto;
-import com.project.instagramcloneteam5.model.dto.BoardGetResponseDto;
-import com.project.instagramcloneteam5.model.dto.BoardRequestDto;
-import com.project.instagramcloneteam5.model.dto.BoardUpdateResponseDto;
 import com.project.instagramcloneteam5.response.Response;
 import com.project.instagramcloneteam5.service.BoardService;
 import com.project.instagramcloneteam5.service.S3Service;
@@ -15,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -93,5 +89,12 @@ public class BoardController {
     public Response deleteBoard(@PathVariable Long boardId) {
         boardService.deleteBoard(boardId);
         return Response.success();
+    }
+
+    @PostMapping("/board/like/{boardId}")
+    public void heartLikes(
+            @PathVariable Long boardId
+    ){
+        boardService.boardLike(boardId);
     }
 }
