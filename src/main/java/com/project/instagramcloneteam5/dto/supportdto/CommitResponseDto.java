@@ -1,6 +1,5 @@
-package com.project.instagramcloneteam5.dto.dto;
+package com.project.instagramcloneteam5.dto.supportdto;
 
-import com.project.instagramcloneteam5.model.Comment;
 import com.project.instagramcloneteam5.model.Commit;
 import lombok.Getter;
 

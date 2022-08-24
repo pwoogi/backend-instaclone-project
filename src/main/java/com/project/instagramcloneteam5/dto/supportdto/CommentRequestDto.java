@@ -1,4 +1,4 @@
-package com.project.instagramcloneteam5.dto.dto;
+package com.project.instagramcloneteam5.dto.supportdto;
 
 import lombok.Getter;
 

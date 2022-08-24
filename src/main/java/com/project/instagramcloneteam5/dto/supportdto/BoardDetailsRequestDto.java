@@ -1,5 +1,4 @@
-package com.project.instagramcloneteam5.dto.dto;
-
+package com.project.instagramcloneteam5.dto.supportdto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardRequestDto {
+public class BoardDetailsRequestDto {
     private String content;
-    private String imgUrl;
 }
