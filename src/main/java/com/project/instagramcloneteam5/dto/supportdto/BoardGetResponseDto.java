@@ -1,4 +1,4 @@
-package com.project.instagramcloneteam5.model.dto;
+package com.project.instagramcloneteam5.dto.supportdto;
 
 import com.project.instagramcloneteam5.dto.supportdto.CommentResponseDto;
 import com.project.instagramcloneteam5.model.Board;
@@ -13,6 +13,8 @@ public class BoardGetResponseDto {
 
     private int commentCount;
 
+    private int likeCount;
+
     private List<String> imgUrl;
 
 
@@ -21,6 +23,7 @@ public class BoardGetResponseDto {
         this.username = board.getMember().getUsername();
         this.content = board.getContent();
         this.imgUrl = imgUrl;
+        this.likeCount = board.getLikeCount();
         this.commentCount = commentList.size();
     }
 

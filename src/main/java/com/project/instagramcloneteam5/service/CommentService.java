@@ -46,7 +46,7 @@ public class CommentService {
         Member member = memberRepository.findMemberByUsername(username).orElseThrow(
                 () -> new PrivateException(Code.NOT_FOUND_MEMBER)
         );
-        Comment comment = new Comment(board, commentRequestDto, member);
+        Comment comment = new Comment(board, commentRequestDto,member);
         comment = commentRepository.save(comment);
         return new CommentResponseDto(comment);
     }
