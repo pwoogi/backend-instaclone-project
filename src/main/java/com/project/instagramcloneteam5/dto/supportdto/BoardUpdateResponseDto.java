@@ -1,10 +1,7 @@
-package com.project.instagramcloneteam5.dto.dto;
+package com.project.instagramcloneteam5.dto.supportdto;
 
 import com.project.instagramcloneteam5.model.Board;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 public class BoardUpdateResponseDto {

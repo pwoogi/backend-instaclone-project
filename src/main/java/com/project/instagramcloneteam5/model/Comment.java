@@ -1,8 +1,8 @@
 package com.project.instagramcloneteam5.model;
 
+import com.project.instagramcloneteam5.dto.supportdto.CommentRequestDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
-import com.project.instagramcloneteam5.model.dto.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;

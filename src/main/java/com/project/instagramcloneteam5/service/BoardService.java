@@ -1,23 +1,21 @@
 package com.project.instagramcloneteam5.service;
 
 import com.project.instagramcloneteam5.config.SecurityUtil;
-import com.project.instagramcloneteam5.dto.dto.*;
+import com.project.instagramcloneteam5.dto.supportdto.BoardDetailsResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardRequestDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardUpdateResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.CommentResponseDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
 import com.project.instagramcloneteam5.exception.support.BoardNotFoundException;
 import com.project.instagramcloneteam5.exception.support.MemberNotFoundException;
-import com.project.instagramcloneteam5.model.Board;
-import com.project.instagramcloneteam5.model.Comment;
-import com.project.instagramcloneteam5.model.Image;
-import com.project.instagramcloneteam5.model.Member;
+import com.project.instagramcloneteam5.model.*;
 import com.project.instagramcloneteam5.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -42,11 +40,11 @@ public class BoardService {
 
     // 게시글 전체 조회
     @Transactional
-    public Map<String, List<BoardGetResponseDto>> getAllBoard() {
-        Map<String, List<BoardGetResponseDto>> listMap = new HashMap<>();
-        List<BoardGetResponseDto> list = new ArrayList<>();
+    public Map<String, List<com.project.instagramcloneteam5.model.dto.BoardGetResponseDto>> getAllBoard() {
+        Map<String, List<com.project.instagramcloneteam5.model.dto.BoardGetResponseDto>> listMap = new HashMap<>();
+        List<com.project.instagramcloneteam5.model.dto.BoardGetResponseDto> list = new ArrayList<>();
         for (Board board : boardRepository.findAllByOrderByCreatedAtDesc()) {
-            BoardGetResponseDto main = getBoardOne(board.getId());
+            com.project.instagramcloneteam5.model.dto.BoardGetResponseDto main = getBoardOne(board.getId());
             list.add(main);
         }
         listMap.put("BoardInfo", list);
@@ -54,17 +52,17 @@ public class BoardService {
     }
 
     // 무한 스크롤
-    public Map<String, List<BoardGetResponseDto>> getAllBoardSlice(int page, int size, String sortBy, Boolean isAsc) {
+    public Map<String, List<com.project.instagramcloneteam5.model.dto.BoardGetResponseDto>> getAllBoardSlice(int page, int size, String sortBy, Boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
 
         Slice<Board> sliceBoardList = boardRepository.findAllBy(pageable);
 
-        Map<String, List<BoardGetResponseDto>> listMap = new HashMap<>();
-        List<BoardGetResponseDto> list = new ArrayList<>();
+        Map<String, List<com.project.instagramcloneteam5.model.dto.BoardGetResponseDto>> listMap = new HashMap<>();
+        List<com.project.instagramcloneteam5.model.dto.BoardGetResponseDto> list = new ArrayList<>();
         for (Board board : sliceBoardList) {
-            BoardGetResponseDto main = getBoardOne(board.getId());
+            com.project.instagramcloneteam5.model.dto.BoardGetResponseDto main = getBoardOne(board.getId());
             list.add(main);
         }
         listMap.put("BoardInfo", list);
@@ -72,7 +70,7 @@ public class BoardService {
     }
 
     //전체 게시글 전달을 위한 조회용 메서드
-    public BoardGetResponseDto getBoardOne(Long boardId) {
+    public com.project.instagramcloneteam5.model.dto.BoardGetResponseDto getBoardOne(Long boardId) {
         Board board = boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
 
         List<String> imgUrl = imageRepository.findAllByBoard(board)
@@ -84,7 +82,7 @@ public class BoardService {
         for (Comment comment : findCommentByBoard) {
             commentResponseDtoList.add(new CommentResponseDto(comment));
         }
-        return new BoardGetResponseDto(boardId, board, imgUrl, commentResponseDtoList);
+        return new com.project.instagramcloneteam5.model.dto.BoardGetResponseDto(boardId, board, imgUrl, commentResponseDtoList);
     }
 
     //게시물 상세조회
