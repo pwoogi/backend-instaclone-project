@@ -27,9 +27,6 @@ public class Heart {
     @JoinColumn
     private Comment comment;
 
-
-
-
     public Heart(Member member,Board board){
         this.member = member;
         this.board = board;
