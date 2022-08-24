@@ -1,8 +1,11 @@
-package com.project.instagramcloneteam5.dto.dto;
+package com.project.instagramcloneteam5.model.dto;
 
 import com.project.instagramcloneteam5.model.Board;
+import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 @Getter
 public class BoardGetResponseDto {
@@ -11,8 +14,6 @@ public class BoardGetResponseDto {
     private String content;
 
     private int commentCount;
-
-    private Long liked;
 
     private List<String> imgUrl;
 

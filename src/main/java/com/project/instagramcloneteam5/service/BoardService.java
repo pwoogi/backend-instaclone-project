@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,6 +36,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final ImageRepository imageRepository;
     private final CommitRepository commitRepository;
+    private final HeartRepository heartRepository;
     private final S3Service s3Service;
 
 
@@ -155,7 +158,7 @@ public class BoardService {
         return new BoardUpdateResponseDto(boardId, board);
     }
 
-    // 게시글 삭제
+     //게시글 삭제
     @Transactional
     public void deleteBoard(Long boardId) {
         Board board = boardRepository.findById(boardId).orElseThrow(
@@ -171,7 +174,7 @@ public class BoardService {
         );
 
         // 본인의 게시글만 삭제 가능
-        //TODO : 필수확인 구조 이상함
+        //TODO: 필수확인 구조 이상함
 
         if (!board.getMember().equals(member)) {
             System.out.println("이름1 = " + board.getMember() + "이름2 = " + member);
@@ -181,4 +184,75 @@ public class BoardService {
         s3Service.delete(board.getImageList());
         boardRepository.delete(board);
     }
+
+    public void boardLike(Long boardId) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(BoardNotFoundException::new);
+        String username = SecurityUtil.getCurrentUsername();
+
+        Member member = memberRepository.findMemberByUsername(username).orElseThrow(
+                () -> new PrivateException(Code.NOT_FOUND_MEMBER)
+        );
+        if (heartRepository.findByBoardAndMember(board,member) == null){
+            Heart heart = new Heart(member, board);
+            member.addHeartLike(heart);
+            board.addHeartLike(heart);
+            board.setLikeCount(board.getHeartLikeList().size());
+            heartRepository.save(heart);
+        }else {
+            Heart byPostAndUsers = heartRepository.findByBoardAndMember(board, member);
+            member.removeHeartLike(byPostAndUsers);
+            board.removeHeartLike(byPostAndUsers);
+            board.setLikeCount(board.getHeartLikeList().size());
+            heartRepository.delete(byPostAndUsers);
+        }
+
+    }
+
+
+//    public void deletePost(Long boardId) {
+//        Board board = boardRepository.findById(boardId)
+//                .orElseThrow(()-> new IllegalArgumentException("아이디가 없습니다"));
+////
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Member member = memberRepository.findByUsername(authentication.getName()).orElseThrow(MemberNotFoundException::new);
+//        if (!board.getMember().equals(member)){
+//            System.out.println("이름1 = " + board.getMember() + "이름2 = " + member);
+//            throw new PrivateException(Code.WRONG_ACCESS_POST_DELETE);
+//        }
+////        Member member = memberRepository.findById(post.getUsers().getUsername())
+////                .orElseThrow(()-> new IllegalArgumentException("아이디가 없습니다"));
+//        commentRepository.deleteAll(board.getCommentList());
+//        s3Service.delete(board.getImageList());
+//        boardRepository.delete(board);
+//
+//    }
+
+//    @Transactional
+//    public String likeBoard(Long boardId) {
+//        Board board = boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
+//
+//        String username = SecurityUtil.getCurrentUsername();
+//
+//        Member member = memberRepository.findMemberByUsername(username).orElseThrow(
+//                () -> new PrivateException(Code.NOT_FOUND_MEMBER)
+//        );
+//        System.out.println("이름 :" + member + "보드 :" + board);
+//        if(heartRepository.findByBoardAndMember(board, member) == null) {
+//            // 좋아요를 누른적 없다면 LikeBoard 생성 후, 좋아요 처리
+//            board.setLiked(board.getLiked() + 1);
+//            Heart heart = new Heart(board, member); // true 처리
+//            System.out.println("이름 :" + member + "보드 :" + board);
+//            heartRepository.save(heart);
+//            return "좋아요 처리 완료";
+//        } else {
+//            // 좋아요를 누른적 있다면 취소 처리 후 테이블 삭제
+//            Heart heart = heartRepository.findByBoardAndMember(board, member);
+//            System.out.println("이름 :" + member + "보드 :" + board);
+//            heart.unLikeBoard(board);
+//            heartRepository.delete(heart);
+//            return "좋아요 취소";
+//        }
+//    }
+
 }

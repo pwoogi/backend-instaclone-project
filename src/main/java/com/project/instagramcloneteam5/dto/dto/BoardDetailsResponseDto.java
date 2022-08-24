@@ -10,7 +10,10 @@ public class BoardDetailsResponseDto {
     private String username;
     private String content;
 
+    private int like;
     private List<String> imgUrl;
+
+
 
     private List<CommentResponseDto> commentList;
 
@@ -19,6 +22,7 @@ public class BoardDetailsResponseDto {
         this.username = board.getMember().getUsername();
         this.content = board.getContent();
         this.imgUrl = imgUrl;
+        this.like = board.getLikeCount();
         this.commentList =commentList;
     }
 }

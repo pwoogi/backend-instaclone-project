@@ -1,6 +1,5 @@
 package com.project.instagramcloneteam5.config;
 
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;

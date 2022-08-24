@@ -80,7 +80,7 @@ public class MemberService {
 
         refreshTokenRepository.save(refreshToken);
 
-        httpServletResponse.setHeader("AccessToken", "Bearer " + tokenDto.getAccessToken());
+        httpServletResponse.setHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
         httpServletResponse.setHeader("ACCESS_TOKEN_EXPIRE_TIME", String.valueOf(tokenDto.getAccessTokenExpiresIn()));
         httpServletResponse.setHeader("RefreshToken", "Bearer " + refreshToken.getValue());
         httpServletResponse.setHeader("REFRESH_TOKEN_EXPIRE_TIME", String.valueOf(tokenDto.getRefreshTokenExpiresIn()));

@@ -2,7 +2,7 @@ package com.project.instagramcloneteam5.model;
 
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
-import com.project.instagramcloneteam5.dto.dto.CommentRequestDto;
+import com.project.instagramcloneteam5.model.dto.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
@@ -22,16 +22,17 @@ public class Comment extends AuditingFields{
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
 
     @OneToMany
     private List<Commit> commitList = new ArrayList<>();
+
 
 
     public Comment(Board board, CommentRequestDto commentRequestDto, Member member) {

@@ -1,14 +1,15 @@
 package com.project.instagramcloneteam5.model;
 
-import com.project.instagramcloneteam5.config.UserDetailsImpl;
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
-import com.project.instagramcloneteam5.dto.dto.BoardRequestDto;
+import com.project.instagramcloneteam5.model.dto.BoardRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,11 @@ public class Board extends AuditingFields{
     @Column(nullable = false)
     private String content;
 
-
     @Transient
     private final List<Image> imageList = new ArrayList<>();
+
+    private int likeCount;
+
 
     @ManyToOne
     @JoinColumn(name = "member_id")
