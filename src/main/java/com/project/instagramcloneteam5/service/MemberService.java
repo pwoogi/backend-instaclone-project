@@ -4,18 +4,13 @@ import com.project.instagramcloneteam5.config.jwt.TokenProvider;
 import com.project.instagramcloneteam5.dto.auth.*;
 import com.project.instagramcloneteam5.exception.support.LoginFailureException;
 import com.project.instagramcloneteam5.exception.support.MemberNotFoundException;
-import com.project.instagramcloneteam5.exception.advice.Code;
-import com.project.instagramcloneteam5.exception.advice.PrivateException;
 import com.project.instagramcloneteam5.exception.support.MemberUsernameAlreadyExistsException;
 import com.project.instagramcloneteam5.model.Authority;
 import com.project.instagramcloneteam5.model.Member;
 import com.project.instagramcloneteam5.model.RefreshToken;
 import com.project.instagramcloneteam5.repository.MemberRepository;
-
 import com.project.instagramcloneteam5.repository.RefreshTokenRepository;
-
 import lombok.AllArgsConstructor;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -23,9 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
 
 
 @Service
@@ -87,6 +80,8 @@ public class MemberService {
 
 
         TokenGetResponseDto tokenGetResponseDto = TokenGetResponseDto.builder()
+                .accessToken(tokenDto.getAccessToken())
+                .refreshToken(tokenDto.getRefreshToken())
                 .username(req.getUsername())
                 .build();
 

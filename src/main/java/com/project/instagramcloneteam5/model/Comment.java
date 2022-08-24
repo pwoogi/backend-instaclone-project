@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class Comment extends AuditingFields{
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 

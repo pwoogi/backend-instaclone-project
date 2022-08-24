@@ -1,10 +1,16 @@
 package com.project.instagramcloneteam5.dto.supportdto;
 
 import com.project.instagramcloneteam5.model.Board;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardDetailsResponseDto {
     private Long boardId;
     private String username;
