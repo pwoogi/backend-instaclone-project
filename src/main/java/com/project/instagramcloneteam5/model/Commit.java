@@ -2,8 +2,7 @@ package com.project.instagramcloneteam5.model;
 
 import com.project.instagramcloneteam5.exception.advice.Code;
 import com.project.instagramcloneteam5.exception.advice.PrivateException;
-import com.project.instagramcloneteam5.model.dto.CommentRequestDto;
-import com.project.instagramcloneteam5.model.dto.CommitRequestDto;
+import com.project.instagramcloneteam5.dto.dto.CommitRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
@@ -23,13 +22,13 @@ public class Commit {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;
 

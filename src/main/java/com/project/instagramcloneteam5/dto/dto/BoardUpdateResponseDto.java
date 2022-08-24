@@ -1,4 +1,4 @@
-package com.project.instagramcloneteam5.model.dto;
+package com.project.instagramcloneteam5.dto.dto;
 
 import com.project.instagramcloneteam5.model.Board;
 import lombok.Getter;

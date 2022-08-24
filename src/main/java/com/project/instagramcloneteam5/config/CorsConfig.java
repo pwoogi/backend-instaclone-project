@@ -1,5 +1,6 @@
 package com.project.instagramcloneteam5.config;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -18,6 +19,8 @@ public class CorsConfig {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addExposedHeader("Authorization");
         config.setMaxAge(3600L);
 
         source.registerCorsConfiguration("/**", config);

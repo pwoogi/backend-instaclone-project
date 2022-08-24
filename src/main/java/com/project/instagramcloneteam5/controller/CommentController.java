@@ -1,11 +1,9 @@
 package com.project.instagramcloneteam5.controller;
 
 
-import com.project.instagramcloneteam5.exception.advice.Code;
-import com.project.instagramcloneteam5.exception.advice.ExceptionResponseDto;
-import com.project.instagramcloneteam5.model.dto.CommentDetailsResponse;
-import com.project.instagramcloneteam5.model.dto.CommentRequestDto;
-import com.project.instagramcloneteam5.model.dto.CommentResponseDto;
+import com.project.instagramcloneteam5.dto.dto.CommentDetailsResponse;
+import com.project.instagramcloneteam5.dto.dto.CommentRequestDto;
+import com.project.instagramcloneteam5.dto.dto.CommentResponseDto;
 import com.project.instagramcloneteam5.response.Response;
 import com.project.instagramcloneteam5.service.CommentService;
 import lombok.RequiredArgsConstructor;
