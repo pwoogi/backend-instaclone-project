@@ -1,6 +1,7 @@
 package com.project.instagramcloneteam5.controller;
 
 import com.project.instagramcloneteam5.dto.supportdto.BoardDetailsResponseDto;
+import com.project.instagramcloneteam5.dto.supportdto.BoardDetailsUpdateRequestDto;
 import com.project.instagramcloneteam5.dto.supportdto.BoardRequestDto;
 import com.project.instagramcloneteam5.dto.supportdto.BoardUpdateResponseDto;
 import com.project.instagramcloneteam5.exception.advice.Code;
@@ -79,8 +80,8 @@ public class BoardController {
     // 게시글 수정
     @PutMapping("/board/details/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    public Response updateBoard(@PathVariable Long boardId,@RequestPart("content") BoardRequestDto boardRequestDto) {
-        BoardUpdateResponseDto boardUpdateResponseDto = boardService.updateBoard(boardId, boardRequestDto);
+    public Response updateBoard(@PathVariable Long boardId,@RequestPart("content") BoardDetailsUpdateRequestDto boardDetailsUpdateRequestDto) {
+        BoardUpdateResponseDto boardUpdateResponseDto = boardService.updateBoard(boardId, boardDetailsUpdateRequestDto);
         return Response.success(boardUpdateResponseDto);
     }
 

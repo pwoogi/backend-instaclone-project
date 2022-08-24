@@ -1,11 +1,12 @@
 package com.project.instagramcloneteam5.dto.supportdto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
+@Setter
+@NoArgsConstructor
 public class CommentDetailsResponse {
 
     private Long commentId;

@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardDetailsRequestDto {
+public class BoardDetailsUpdateRequestDto {
     private String content;
 }
