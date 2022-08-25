@@ -26,7 +26,7 @@ Spring Boot + React를 사용한 클론 코딩 프로젝트
 
 🤔 Team
 -------------  
-[Front-End] []
+[Front-End, 대표주소] [나청운](https://github.com/jennywoon/Instagram-Clone)
 <br/>
 [Back-End] [박현욱](https://github.com/pwoogi), [박민혁](https://github.com/Park-Seaweed)
 
