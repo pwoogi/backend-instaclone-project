@@ -4,7 +4,6 @@ Spring Boot + React를 사용한 클론 코딩 프로젝트
 <!-- [**[트리스티의 SpringBoot + React를 사용한 클론 코딩 프로젝트에 오신 여러분을 환영합니다!]**]  -->
 
 <br/>
-<br/>
 
 <!-- [**[Fornt-End Github]**]()   -->
 <!-- [**[Demo Video]**]()   -->
@@ -63,13 +62,20 @@ https://park-seaweed.notion.site/5-1c6f8b5caf1741979939521d9b415a03
 4. S3활용한 이미지 업로드 구현
 
 <br/>
-<br/>
+🤔 담당 기능
+------------- 
+* 박현욱 : SSL, 회원가입, 로그인, 대댓글 CRUD, ERD 맵핑, issue tracking
 
+<br/>
+* 박민혁 : S3 업로드, 게시물, 댓글, 좋아요 기능, API 설계, AWS 배포
+
+<br/>
 🤔 트러블 슈팅
 * [ ] Entity 설정을 (LAZY)지연로딩으로 하면서 데이터 수정,삭제의 어려움을 겪음
 * 해결 : 프록시 객체에 대한 학습을 통해 게시물, 댓글, 대댓글 삭제, 수정 기능 구현
 * [ ] Dto 인스턴스 변수 설정오류로 생성자 부재로 인해 데이터 값을 제대로 불러오지 못했던 점
 * details, update, get으로 request, reponse dto를 설정해서 중복을 방지
+* [ ] 소셜 로그인, 무한 스크롤 기능 확인해보지 못한 점
 * [ ] Backend에서 postman을 통해 데이터를 확인했더라도 프론트 console에서 에러가 나는 것은 결국 Backend의 데이터 전달과정에서  
 문제가 있을 가능성이 크다는 것을 느낌 
 
