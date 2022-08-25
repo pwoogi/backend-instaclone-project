@@ -69,7 +69,6 @@ https://park-seaweed.notion.site/5-1c6f8b5caf1741979939521d9b415a03
 * 박현욱 : SSL, 회원가입, 로그인, 대댓글 CRUD, ERD 맵핑, issue tracking
 
 <br/>
-<br/>
 
 * 박민혁 : S3 업로드, 게시물, 댓글, 좋아요 기능, API 설계, AWS 배포
 
