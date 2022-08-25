@@ -41,7 +41,20 @@ Spring Boot + React를 사용한 클론 코딩 프로젝트
 <li><b>필수 포함 사항</b></li>
 </ul>
 
-🎮 클론 기능
+
+🎮 ERD
+-------------
+
+![0](https://user-images.githubusercontent.com/107388110/186649800-b4bda2df-0b2f-4f63-afec-ac6bd6f08dea.PNG)
+
+🎮 API
+-------------
+[Link]
+
+https://park-seaweed.notion.site/5-1c6f8b5caf1741979939521d9b415a03
+
+
+🎮 백엔드 기능
 -------------
 [Back-End] 기술
 1. JWT를 활용한 accessToken, refreshToken 설정
