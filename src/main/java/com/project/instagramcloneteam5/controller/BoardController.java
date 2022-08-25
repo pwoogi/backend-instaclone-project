@@ -93,9 +93,10 @@ public class BoardController {
     }
 
     @PostMapping("/board/like/{boardId}")
-    public void heartLikes(
+    public Response heartLikes(
             @PathVariable Long boardId
     ){
         boardService.boardLike(boardId);
+        return Response.success();
     }
 }
